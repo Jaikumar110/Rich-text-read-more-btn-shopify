@@ -1,0 +1,91 @@
+<style>
+  @media screen and (max-width: 800px){
+.jk-rich {
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+}
+}
+    .jk-container {
+      max-height: 614px;
+      overflow: hidden;
+      padding: 10px 0px;
+    }
+  button#readMoreBtn {
+    text-align: center;
+    font-size: 16px;
+    background: #eee;
+    max-width: 120px;
+    padding: 10px;
+    margin: 0 auto;
+   text-decoration-line: underline;
+}
+  .jk-rich{
+    margin-left:100px;
+    margin-right:100px;
+  }
+  .jk-heading{
+    text-align:center;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 15px;
+    font-size:16px;
+  }
+  .jk-btn {
+    text-align: center;
+    padding: 10px;
+}
+  </style>
+  <div class="jk-rich">
+<div class="jk-container">
+ {%- if section.settings.title != blank -%}
+  <h6 class="jk-heading">{{ section.settings.title | escape }}</h6>
+     {%- endif -%}
+<p>{{ section.settings.text }}</p>
+</div>
+    <div class=jk-btn>
+      <button id="readMoreBtn">Read More</button>
+    </div>
+  </div>
+
+
+<script>
+    const textContainer = document.querySelector('.jk-container');
+    const readMoreBtn = document.getElementById('readMoreBtn');
+    let isExpanded = false;
+
+    readMoreBtn.addEventListener('click', function() {
+      if (isExpanded) {
+       textContainer.style.maxHeight = '614px';
+        readMoreBtn.innerHTML = 'Read More';
+      } else {
+        // Set a large value to ensure the container expands fully based on the content
+       textContainer.style.maxHeight = '100%';
+        readMoreBtn.innerHTML = 'Read Less';
+      }
+      isExpanded = !isExpanded;
+    });
+  </script>
+
+{% schema %}
+  {
+    "name": "Rich jk",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      }
+    ],
+    "presets": [{
+        "name": "Rich jk",
+        "category": "Text"
+    }]
+  }
+{% endschema %}
